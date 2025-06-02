@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00f5ff;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00f5ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #00f5ff, #0080ff);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid #00f5ff;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 100px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #00f5ff;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 245, 255, 0.2);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: #00f5ff;
+        }
+
+        .skill-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .skill-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00f5ff, #0080ff);
+            border-radius: 4px;
+            animation: fillBar 2s ease-out;
+        }
+
+        .skill-percentage {
+            float: right;
+            font-weight: bold;
+            color: #00f5ff;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 100px 2rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.3);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #00f5ff;
+        }
+
+        .project-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(0, 245, 255, 0.2);
+            color: #00f5ff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00f5ff, #0080ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-link:hover {
+            background: #00f5ff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 2rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.4);
+            /* হালকা glow */
+            transition: all 0.3s ease;
+            /* স্মুথ hover effect */
+
+
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: #00f5ff;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item0 {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            /* নতুন যোগ করা স্টাইল */
+            width: 210%;
+            /* পুরো available width নিবে */
+            max-width: 6000px;
+            /* সর্বোচ্চ 600px পর্যন্ত বিস্তৃত হবে */
+            margin: 0 auto;
+            /* সেন্টারে আনবে */
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.4);
+            /* হালকা glow */
+            transition: all 0.3s ease;
+            /* স্মুথ hover effect */
+        }
+
+        .contact-item0:hover {
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.6);
+            /* hover এ glow বাড়বে */
+        }
+
+        .contact-icon0 {
+            font-size: 2rem;
+            color: #00f5ff;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            align-items: stretch;
+            /* এটা নিশ্চিত করে সব বক্স সমান height নিবে */
+        }
+
+        .contact-item {
+            display: flex;
+            /* flex দিয়ে ভিতরের content center করা সহজ */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* content vertically center হবে */
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+            /* height পুরো parent এর সমান হবে */
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.6);
+        }
+
+        .project-card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fillBar {
+            from {
+                width: 0%;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .skills-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Floating particles background effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 245, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating particles -->
+    <div class="particles">
+        <div class="particle" style="width: 10px; height: 10px; left: 10%; top: 20%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 15px; height: 15px; left: 20%; top: 80%; animation-delay: 1s;"></div>
+        <div class="particle" style="width: 8px; height: 8px; left: 80%; top: 30%; animation-delay: 2s;"></div>
+        <div class="particle" style="width: 12px; height: 12px; left: 70%; top: 70%; animation-delay: 3s;"></div>
+        <div class="particle" style="width: 6px; height: 6px; left: 90%; top: 10%; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Md Rakib Hosen</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Java Developer</h1>
+            <p>Passionate Java developer with 1 years of experience building scalable and robust enterprise
+                applications.</p>
+
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="pdf\cv.pdf" class="btn btn-secondary" download="Rakib_CV.pdf">Viwe Resume</a>
+
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-header">
+                    <i class="fab fa-java skill-icon"></i>
+                    <div>
+                        <div class="skill-name">Java </div>
+                        <div class="skill-percentage">95%</div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 95%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-header">
+                    <i class="fab fa-java skill-icon"></i>
+                    <div>
+                        <div class="skill-name"> Spring Boot</div>
+                        <div class="skill-percentage">90%</div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 95%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-header">
+                    <i class="fab fa-angular skill-icon"></i>
+                    <div>
+                        <div class="skill-name">Angular</div>
+                        <div class="skill-percentage">80%</div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 90%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-header">
+                    <i class="fas fa-database skill-icon"></i>
+                    <div>
+                        <div class="skill-name">SQL & Oracle Databases</div>
+                        <div class="skill-percentage">80%</div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 85%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-header">
+                    <i class="fab fa-android skill-icon"></i>
+
+                    <div>
+                        <div class="skill-name">Android</div>
+                        <div class="skill-percentage">80%</div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 75%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png" alt="Flutter"
+                        class="skill-icon" style="height: 40px;">
+
+                    <div>
+                        <div class="skill-name">flutter</div>
+                        <div class="skill-percentage">80%</div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 90%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="projects-container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <a href="https://maazrokib.github.io/Update-k.app/home" target="_blank" class="project-card-link">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="image/krishi.jpg" alt="Krishi Project Image"
+                                style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover;">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">KrishiConnect – Smart Agriculture Management System</h3>
+                            <p class="project-description">
+                                Developed a full-stack agriculture management platform to empower farmers and connect them with buyers and administrators. 
+                                Features include farmer registration, product posting, offer management, and an admin control panel. 
+                                Built using Angular, Spring Boot, and MySQL to enhance accessibility and product visibility for rural farmers.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">Java</span>
+                                <span class="tag">Angular</span>
+                                <span class="tag">Spring Boot</span>
+                                <span class="tag">MySQL</span>
+                                <span class="tag">Rest API</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="image/to-let.jpeg" alt="To-Let Project Image" style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover;" />
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">To•Let – Smart Rental Platform</h3>
+                        <p class="project-description">
+                            A modern and user-friendly To-Let platform that allows house owners to post rental listings and tenants to search and connect easily. Built with robust backend architecture and responsive front-end design for seamless experience.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">Spring Boot</span>
+                            <span class="tag">Hibernate</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">Angular</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="image/july36.jpg" alt="July36 Project Image" style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover;" />
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">July36 – স্মৃতি চিহ্নে july আন্দোলন</h3>
+                        <p class="project-description">
+                            July36 একটি স্মারক ও দলিলভিত্তিক প্ল্যাটফর্ম, যেখানে ২০২৪ সালের জুলাই মাসে ছাত্রদের উপর সংঘটিত হামলার সত্য ঘটনা, নামের তালিকা, সংবাদ প্রতিবেদন, ছবি ও প্রামাণ্য নথিপত্র সংরক্ষিত রয়েছে। এই প্রজেক্টের উদ্দেশ্য হচ্ছে শহীদদের স্মরণ, ইতিহাসকে লিপিবদ্ধ রাখা এবং ন্যায়ের পথে সোচ্চার থাকা।
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Java</span>
+                            <span class="tag">Angular</span>
+                            <span class="tag">Spring Boot</span>
+                            <span class="tag">MySQL</span>
+                            <span class="tag">Rest API</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="image/h.jpg" alt="Profile Image" style="width: 100%; height: 100%; border-radius: 50%;">
+            </div>
+            <div class="about-text">
+                <p>
+                    Passionate Java developer with over a year of experience building impactful web applications. Skilled in full-stack development using Spring Boot, Angular, Hibernate, and MySQL. Experienced in leading feature design, backend implementation, and responsive frontend development.
+                </p>
+                
+                <p>
+                    Committed to leveraging technology for social good, with projects focused on rental management, historical documentation, and agricultural services.
+                </p>
+                
+                <p>
+                    Future goal is to become a full-stack architect, creating scalable systems that support education, social justice, and rural development.
+                </p>
+                
+
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/md-rakib-089370350/" target="_blank" class="social-link"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/maazrokib" target="_blank" class="social-link"><i
+                            class="fab fa-github"></i></a>
+                    <a href="mailto:mdrakib6767@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p>I'm currently available for new opportunities and collaborations. Feel free to reach out!</p>
+
+            <div class="contact-info">
+                <a href="mailto:mdrakib6767@gmail.com" class="contact-item" target="_blank">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <h3>Email</h3>
+                    <p>mdrakib6767@gmail.com</p>
+                </a>
+                <a href="https://wa.me/8801795719389" class="contact-item" target="_blank">
+                    <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                    <h3>WhatsApp</h3>
+                    <p>+8801795719389</p>
+                </a>
+                <div class="contact-item0">
+                    <div class="contact-icon0"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>Location</h3>
+                    <p>Dhaka, Bangladesh</p>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Md Rakib Hosen. All rights reserved.</p>
+        <div class="social-links" style="justify-content: center; margin-top: 1rem;">
+            <a href="https://www.linkedin.com/in/md-rakib-089370350/" target="_blank" class="social-link"><i
+                    class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/maazrokib" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="mailto:mdrakib6767@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.3)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Animate skill bars when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'none';
+                    entry.target.offsetHeight; // Trigger reflow
+                    entry.target.style.animation = 'fillBar 2s ease-out';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-progress').forEach(bar => {
+            observer.observe(bar);
+        });
+
+        // Add hover effect to project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+
+</html>
